@@ -6,5 +6,6 @@ An AI-powered security & network analyst I'm building across 8 weeks.
 
 ## Skills so far
 - Week 1: Thinks like a security analyst (prompt library)
+- Week 3: Log Auditing
 
 More coming each week.

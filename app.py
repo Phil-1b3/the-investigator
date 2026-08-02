@@ -46,11 +46,12 @@ do not invent technique IDs or events that are not present in the logs."""
 #     never hard-coded. Both tabs call this.
 def ask_groq(messages):
     try:
-        client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+        api_key = st.secrets.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+        if not api_key:
+            return "⚠️ No GROQ_API_KEY found. Add it to .streamlit/secrets.toml or pass it as an environment variable."
+        client = Groq(api_key=api_key)
         resp = client.chat.completions.create(model=MODEL, messages=messages)
         return resp.choices[0].message.content
-    except KeyError:
-        return "⚠️ No GROQ_API_KEY found. Add it to .streamlit/secrets.toml and rerun."
     except Exception as e:
         return f"⚠️ Groq request failed: {e}"
 

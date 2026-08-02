@@ -15,7 +15,7 @@ exactly the plain loop from the lab. Read run_agent() and you'll see it.
 
 import os
 import json
-from groq import Groq
+from groq import Groq, AuthenticationError
 
 from rich.console import Console
 from rich.panel import Panel
@@ -117,8 +117,13 @@ def run_agent(goal, max_steps=10):
     for step in range(max_steps):          # #-> bound the loop — never let an agent run forever
         # #-> Ask the model what to do next. The spinner shows it's "thinking".
         with console.status("[bold green]Investigator is thinking...", spinner="dots"):
-            resp = client.chat.completions.create(
-                model=MODEL, messages=messages, tools=TOOLS, tool_choice="auto")
+            try:
+                resp = client.chat.completions.create(
+                    model=MODEL, messages=messages, tools=TOOLS, tool_choice="auto")
+            except AuthenticationError as exc:
+                console.print("[bold red]Authentication failed.[/]")
+                console.print("[bold red]Check that GROQ_API_KEY is set to a valid Groq API key.[/]")
+                raise SystemExit(1) from exc
         msg = resp.choices[0].message
         messages.append(msg)               # remember what the agent said / asked for
 

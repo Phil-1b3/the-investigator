@@ -2,7 +2,9 @@
 My AI-powered security &amp; network analyst (built across 8 weeks)
 # The Investigator
 
-An AI-powered security & network analyst I'm building across 8 weeks.
+The Investigator is an evolving AI‑powered security and networking analyst built across an eight‑week development track. Each week adds a new capability — from phishing triage to log auditing, network hunting, autonomous agents, and finally a deployed Streamlit SOC Copilot running live on the internet.
+
+This repository contains the Investigator’s “brain”: the instruction set that grows week by week, along with supporting code, tools, and deployment artifacts.
 
 ## Skills 
 - Week 1: Thinks like a security analyst (prompt library)
